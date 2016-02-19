@@ -5,12 +5,22 @@
  */
 package capitulo8.inputoutput;
 
-import java.net.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
-public class MiPrimeraConexion {
-    public static void main(String[] args) throws Exception{
-        URL url1=new
+/**
+ *
+ * @author T-101
+ */
+public class ServicioLeerEstacion {
+    
+    public static String generarValor(String etiqueta) throws Exception{
+        
+         String valor="Sin valor";
+         URL url1=new
                     URL("http://www.weatherlink.com/user/sierraguadalupe/index.php?view=summary&headers=0");
         HttpURLConnection con=(HttpURLConnection) url1.openConnection();
                 InputStream input=con.getInputStream();
@@ -27,11 +37,12 @@ public class MiPrimeraConexion {
                         int indice1=lineaActual.indexOf("</");
                         String tempActual=lineaActual.substring(indice+1, indice1);
                         
+                        valor=tempActual;
                         System.out.println(tempActual);
                         miLinea++;
                     }
                     
-                    if(lineaActual.contains("Outside Temp")){
+                    if(lineaActual.contains(etiqueta)){
                         encontrado=true;
                         
                         System.out.println(lineaActual);
@@ -39,49 +50,11 @@ public class MiPrimeraConexion {
                         
                     }
                 }
-                
-                
-                
+        return valor;
+    
     }
 }
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                //int renglones=0;
-                //while(reader.readLine()!=null){
-                //renglones++;
-                    //if(reader.readLine().contains("Current Conditions as of")){
-                    //    System.out.println(reader.readLine()+"\n");
-                   // else {
-                   // }
-                //String hola="<td width=class summary_data>21.2 C</td>";
-                //int indice1= hola.indexOf("summary_data");
-                //int indice2= hola.indexOf("</td>");
-                //String nuevo=hola.substring(indice1+13, indice2);
-                //System.out.println(nuevo);
- 
-        
-                
-               // System.out.println("Numero de renglones: "+renglones);
-              
-        
-    
-    
 
 
 
-//if(renglones==91 ||renglones==102){
+
