@@ -5,11 +5,9 @@
  */
 package capitulo11.Collections;
 
-/**
- *
- * @author T-101
- */
-public class Usuario implements Serializacion{
+import java.io.*;
+
+public class Usuario implements Serializable{
     String login;
     String password;
 

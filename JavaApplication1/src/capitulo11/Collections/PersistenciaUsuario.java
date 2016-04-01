@@ -14,7 +14,7 @@ public class PersistenciaUsuario {
         usuarios=new ArrayList<>();
     }
     //Primero ponemos el metodo de buscar todos
-    ArrayList<Usuario>buscarTodos()throws Exception{
+    ArrayList<Usuario> buscarTodos()throws Exception{
         //Paso numero 1: leemos el archivo donde esta guardado el arraylist
         File f=new File("archivaldo.raton");
         //leemos el contenido
