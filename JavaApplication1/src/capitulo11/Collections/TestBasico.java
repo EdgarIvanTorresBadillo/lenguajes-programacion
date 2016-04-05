@@ -27,23 +27,13 @@ public class TestBasico extends javax.swing.JFrame {
     }
     */
     public TestBasico() {
-        initComponents();
-        radios[0]=radio0;
-        radios[1]=radio1;
-        radios[2]=radio2;
-        radios[3]=radio3;
-        preguntas= GeneradorPreguntas.obtenerTodasLasPreguntas(); //solo este arriba de init despues de init iniciarTodas()
-        pregunta.setText(preguntas.get(0).getTitulo());
-        ArrayList<Pregunta> preguntas=GeneradorPreguntas.obtenerTodasLasPreguntas();
-        pregunta.setText(preguntas.get(0).getTitulo());
-        radio0.setText(preguntas.get(0).getOpciones().get(0).getTitulo());
-        radio1.setText(preguntas.get(0).getOpciones().get(1).getTitulo());
-        radio2.setText(preguntas.get(0).getOpciones().get(2).getTitulo());
-        radio3.setText(preguntas.get(0).getOpciones().get(3).getTitulo());
-        /*isSelected
+        preguntas=GeneradorPreguntas.obtenerTodasLasPreguntas();
         
-        */
-    }
+        initComponents();
+        
+        iniciarTodas();
+        
+        }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -62,6 +52,7 @@ public class TestBasico extends javax.swing.JFrame {
         radio3 = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,6 +84,13 @@ public class TestBasico extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setText("Ir a pregunta anterior");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -111,9 +109,13 @@ public class TestBasico extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(pregunta, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton2)))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jButton1)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButton2))
+                                    .addComponent(jButton3))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -133,7 +135,9 @@ public class TestBasico extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                .addGap(18, 18, 18))
         );
 
         pack();
@@ -141,13 +145,21 @@ public class TestBasico extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        boolean respuesta=GeneradorPreguntas.checarRespuesta(preguntas.get(0), radios);
+        boolean respuesta=GeneradorPreguntas.checarRespuesta(preguntas.get(numero), radios);
         JOptionPane.showMessageDialog(rootPane, "Respuesta:"+respuesta);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        numero++;
+        iniciarTodas();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        numero--;
+        iniciarTodas();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -188,10 +200,28 @@ public class TestBasico extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel pregunta;
     private javax.swing.JRadioButton radio0;
     private javax.swing.JRadioButton radio1;
     private javax.swing.JRadioButton radio2;
     private javax.swing.JRadioButton radio3;
     // End of variables declaration//GEN-END:variables
+
+    public void iniciarTodas(){
+    
+    if(numero<preguntas.size()){
+        radios[0]=radio0;
+        radios[1]=radio1;
+        radios[2]=radio2;
+        radios[3]=radio3;
+        ArrayList<Pregunta> preguntas=GeneradorPreguntas.obtenerTodasLasPreguntas();
+        pregunta.setText(preguntas.get(numero).getTitulo());
+        
+        radio0.setText(preguntas.get(numero).getOpciones().get(0).getTitulo());
+        radio1.setText(preguntas.get(numero).getOpciones().get(1).getTitulo()); 
+        radio2.setText(preguntas.get(numero).getOpciones().get(2).getTitulo());
+        radio3.setText(preguntas.get(numero).getOpciones().get(3).getTitulo()); 
+    }
+}
 }
